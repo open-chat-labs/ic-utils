@@ -1,4 +1,8 @@
 [workspace]
 members = [
-    "canister_state_macros"
+    "canister_state_macros",
+    "stable_memory",
 ]
+
+[patch.crates-io]
+ic-cdk = { git = "https://github.com/hpeebles/cdk-rs", rev = "a49e2eb44ebf977d545d0e120197fe572692a27f" }
