@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "canister_state_macros",
+    "canister_tracing_macros",
     "stable_memory",
 ]
 
