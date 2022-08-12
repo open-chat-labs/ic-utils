@@ -41,5 +41,9 @@ macro_rules! canister_state {
         {
             __STATE.with(|s| f(s.borrow_mut().as_mut().expect(__STATE_NOT_INITIALIZED)))
         }
+
+        fn can_borrow_state() -> bool {
+            __STATE.with(|s| s.try_borrow().is_ok())
+        }
     };
 }
