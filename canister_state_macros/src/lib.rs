@@ -2,7 +2,7 @@
 macro_rules! canister_state {
     ($type:ty) => {
         thread_local! {
-            static __STATE: RefCell<Option<$type>> = RefCell::default();
+            static __STATE: std::cell::RefCell<Option<$type>> = std::cell::RefCell::default();
         }
 
         const __STATE_ALREADY_INITIALIZED: &str = "State has already been initialized";
