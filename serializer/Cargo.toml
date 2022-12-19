@@ -1,11 +1,10 @@
 [package]
-name = "stable_memory"
+name = "serializer"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ic-cdk = "0.6.8"
+rmp-serde = "1.0.0"
 serde = "1.0.136"
-serializer = { path = "../serializer" }
