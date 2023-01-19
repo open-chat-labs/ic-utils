@@ -1,5 +1,3 @@
-use std::time::SystemTime;
-
 pub fn timestamp_seconds() -> u64 {
     timestamp_nanos() / 1_000_000_000
 }
@@ -19,6 +17,8 @@ pub fn timestamp_nanos() -> u64 {
 
 #[cfg(not(target_arch = "wasm32"))]
 pub fn timestamp_nanos() -> u64 {
+    use std::time::SystemTime;
+
     SystemTime::now()
         .duration_since(SystemTime::UNIX_EPOCH)
         .unwrap()
