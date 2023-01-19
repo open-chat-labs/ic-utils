@@ -3,10 +3,10 @@ members = [
     "canister_logger",
     "canister_state_macros",
     "canister_time",
+    "canister_timer_jobs",
     "canister_tracing_macros",
     "serializer",
     "stable_memory",
-    "timer_jobs",
 ]
 
 [workspace.dependencies]

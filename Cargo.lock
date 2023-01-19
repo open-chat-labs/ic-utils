@@ -180,6 +180,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "canister_timer_jobs"
+version = "0.1.0"
+dependencies = [
+ "canister_time",
+ "ic-cdk",
+ "serde",
+]
+
+[[package]]
 name = "canister_tracing_macros"
 version = "0.1.0"
 dependencies = [
@@ -1055,15 +1064,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5516c27b78311c50bf42c071425c560ac799b11c30b31f87e3081965fe5e0180"
 dependencies = [
  "once_cell",
-]
-
-[[package]]
-name = "timer_jobs"
-version = "0.1.0"
-dependencies = [
- "canister_time",
- "ic-cdk",
- "serde",
 ]
 
 [[package]]
