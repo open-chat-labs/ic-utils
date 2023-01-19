@@ -2,7 +2,7 @@
 
 use candid::CandidType;
 use serde::{Deserialize, Serialize};
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::collections::VecDeque;
 use std::io::Write;
 use tracing_subscriber::fmt::format::{FmtSpan, Writer};
@@ -13,11 +13,16 @@ use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::Registry;
 
 thread_local! {
+    static INITIALIZED: Cell<bool> = Cell::default();
     static LOG: RefCell<LogBuffer> = RefCell::new(LogBuffer::default());
     static TRACE: RefCell<LogBuffer> = RefCell::new(LogBuffer::default());
 }
 
-pub fn setup(enable_trace: bool) {
+pub fn init(enable_trace: bool) {
+    if INITIALIZED.with(|i| i.replace(true)) {
+        panic!("Logger already initialized");
+    }
+
     let log_layer = Layer::default()
         .with_writer(|| LogWriter::new(false))
         .json()
@@ -43,14 +48,13 @@ pub fn setup(enable_trace: bool) {
     }
 }
 
-pub fn prepend(logs: Vec<LogEntry>, traces: Vec<LogEntry>) {
-    let existing_logs = LOG.with(|l| l.take().entries);
-    for log in logs.into_iter().chain(existing_logs) {
+pub fn init_with_logs(enable_trace: bool, logs: Vec<LogEntry>, traces: Vec<LogEntry>) {
+    init(enable_trace);
+
+    for log in logs {
         LOG.with(|l| l.borrow_mut().append(log));
     }
-
-    let existing_traces = TRACE.with(|l| l.take().entries);
-    for trace in traces.into_iter().chain(existing_traces) {
+    for trace in traces {
         TRACE.with(|t| t.borrow_mut().append(trace));
     }
 }
