@@ -6,4 +6,5 @@ members = [
     "canister_tracing_macros",
     "serializer",
     "stable_memory",
+    "timer_jobs",
 ]
