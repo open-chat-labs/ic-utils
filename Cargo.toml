@@ -2,6 +2,7 @@
 members = [
     "canister_logger",
     "canister_state_macros",
+    "canister_time",
     "canister_tracing_macros",
     "serializer",
     "stable_memory",

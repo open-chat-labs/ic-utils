@@ -136,7 +136,7 @@ impl Write for LogWriter {
         let json = String::from_utf8(buffer).unwrap();
 
         let log_entry = LogEntry {
-            timestamp: private::timestamp_millis(),
+            timestamp: canister_time::timestamp_millis(),
             message: json,
         };
 
@@ -154,25 +154,8 @@ struct Timer;
 
 impl FormatTime for Timer {
     fn format_time(&self, w: &mut Writer) -> std::fmt::Result {
-        let now = private::timestamp_millis();
+        let now = canister_time::timestamp_millis();
 
         w.write_str(&format!("{now}"))
-    }
-}
-
-mod private {
-    use std::time::SystemTime;
-
-    #[cfg(target_arch = "wasm32")]
-    pub fn timestamp_millis() -> u64 {
-        unsafe { ic0::time() as u64 / 1_000_000 }
-    }
-
-    #[cfg(not(target_arch = "wasm32"))]
-    pub fn timestamp_millis() -> u64 {
-        SystemTime::now()
-            .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap()
-            .as_millis() as u64
     }
 }

@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 candid = "0.8.4"
+canister_time = { path = "../canister_time" }
 ic0 = "0.18.7"
 serde = "1.0.152"
 tracing = "0.1.37"
