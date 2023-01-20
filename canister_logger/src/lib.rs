@@ -5,9 +5,11 @@ use serde::{Deserialize, Serialize};
 use std::cell::{Cell, RefCell};
 use std::collections::VecDeque;
 use std::io::Write;
+use tracing::Level;
 use tracing_subscriber::fmt::format::{FmtSpan, Writer};
 use tracing_subscriber::fmt::time::FormatTime;
 use tracing_subscriber::fmt::Layer;
+use tracing_subscriber::fmt::writer::MakeWriterExt;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::Registry;
@@ -24,7 +26,7 @@ pub fn init(enable_trace: bool) {
     }
 
     let log_layer = Layer::default()
-        .with_writer(|| LogWriter::new(false))
+        .with_writer((|| LogWriter::new(false)).with_max_level(Level::INFO))
         .json()
         .with_timer(Timer {})
         .with_file(true)
