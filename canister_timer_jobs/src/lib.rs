@@ -20,7 +20,7 @@ impl<J: Job> TimerJobs<J> {
         let wrapper = Rc::new(RefCell::new(Some(job)));
         let clone = wrapper.clone();
         let timer_id = ic_cdk::timer::set_timer(Duration::from_millis(delay), move || {
-            if let Some(j) = clone.borrow_mut().take() {
+            if let Some(j) = clone.take() {
                 j.execute();
             }
         });
