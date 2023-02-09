@@ -1,4 +1,4 @@
-use ic_cdk::timer::TimerId;
+use ic_cdk_timers::TimerId;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::cell::RefCell;
 use std::collections::BTreeMap;
@@ -19,7 +19,7 @@ impl<J: Job> TimerJobs<J> {
         let delay = due.saturating_sub(now);
         let wrapper = Rc::new(RefCell::new(Some(job)));
         let clone = wrapper.clone();
-        let timer_id = ic_cdk::timer::set_timer(Duration::from_millis(delay), move || {
+        let timer_id = ic_cdk_timers::set_timer(Duration::from_millis(delay), move || {
             if let Some(j) = clone.take() {
                 j.execute();
             }
@@ -46,7 +46,7 @@ impl<J> TimerJobs<J> {
             .collect();
 
         for timer_id in to_remove {
-            ic_cdk::timer::clear_timer(timer_id);
+            ic_cdk_timers::clear_timer(timer_id);
             self.jobs.remove(&timer_id);
         }
     }

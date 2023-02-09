@@ -7,5 +7,5 @@ edition = "2021"
 
 [dependencies]
 canister_time = { path = "../canister_time" }
-ic-cdk = { workspace = true, features = ["timers"] }
+ic-cdk-timers = { workspace = true }
 serde = { workspace = true }
