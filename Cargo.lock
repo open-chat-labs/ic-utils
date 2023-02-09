@@ -184,7 +184,7 @@ name = "canister_timer_jobs"
 version = "0.1.0"
 dependencies = [
  "canister_time",
- "ic-cdk",
+ "ic-cdk-timers",
  "serde",
 ]
 
@@ -450,18 +450,15 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "ic-cdk"
-version = "0.6.8"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2693ba66f3d54284643713ca2be0b23f91a02cb3ab793a22ffd75f95593305e"
+checksum = "bb6d60ecf5b27833f0fe213ed481dcb6d25219abcfd0582eb8a77b20938aae00"
 dependencies = [
  "candid",
- "cfg-if",
- "futures",
  "ic-cdk-macros",
  "ic0",
  "serde",
  "serde_bytes",
- "slotmap",
 ]
 
 [[package]]
@@ -479,10 +476,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "ic0"
-version = "0.18.7"
+name = "ic-cdk-timers"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e17ec1438d667907ee275368801390f45ba0b4f6e6c2a45221e5d01199187f4f"
+checksum = "c400f8048f4f5ba3bd3d5fe9301b9343e8ef2e2749079af8f99d4f317ebbbb14"
+dependencies = [
+ "futures",
+ "ic-cdk",
+ "ic0",
+ "serde",
+ "serde_bytes",
+ "slotmap",
+]
+
+[[package]]
+name = "ic0"
+version = "0.18.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "978b91fc78de9d2eb0144db717839cde3b35470199ea51aca362cb6310e93dfd"
 
 [[package]]
 name = "indexmap"
