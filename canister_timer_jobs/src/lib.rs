@@ -30,7 +30,7 @@ impl<J: Job> TimerJobs<J> {
 }
 
 impl<J> TimerJobs<J> {
-    pub fn cancel_jobs<F: Fn(&J) -> bool>(&mut self, filter: F) {
+    pub fn cancel_jobs<F: Fn(&J) -> bool>(&mut self, filter: F) -> Vec<J> {
         #[allow(clippy::redundant_closure)]
         let to_remove: Vec<_> = self
             .jobs
@@ -45,10 +45,16 @@ impl<J> TimerJobs<J> {
             .map(|(timer_id, _)| *timer_id)
             .collect();
 
+        let mut removed = Vec::new();
         for timer_id in to_remove {
             ic_cdk_timers::clear_timer(timer_id);
-            self.jobs.remove(&timer_id);
+            if let Some((_, wrapper)) = self.jobs.remove(&timer_id) {
+                if let Some(job) = wrapper.take() {
+                    removed.push(job);
+                }
+            }
         }
+        removed
     }
 }
 
